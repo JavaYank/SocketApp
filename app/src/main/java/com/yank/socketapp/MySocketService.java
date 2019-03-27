@@ -64,15 +64,15 @@ public class MySocketService extends Service {
     }
 
     private void showNotification(String text){
+        Intent notifyIntent = new Intent(this, MainActivity.class);
+        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent notifyPendingIntent = PendingIntent.getActivity(this, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("Socket App")
                 .setContentText(text)
                 .setSmallIcon(R.drawable.ic_polymer)
-                .setContentIntent(PendingIntent.getActivity(
-                        this,
-                        0,
-                        new Intent(this, MainActivity.class),
-                        0))
+                .setContentIntent(notifyPendingIntent)
                 .build();
 
         startForeground(1, notification);
