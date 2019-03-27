@@ -24,6 +24,9 @@ public class MySocketService extends Service {
     private InputStreamReader in;
     private BufferedReader br;
 
+    public MySocketService() {
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -33,15 +36,14 @@ public class MySocketService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         showNotification("идет подключение...");
         socketConnect();
-        return START_NOT_STICKY;
+        return START_STICKY;
     }
 
     private void socketConnect() {
         final Handler handler = new Handler();
         Thread thread = new Thread(() -> {
             try {
-                //socket = new Socket("128.10.10.207", 50503);
-                socket = new Socket("192.168.30.207", 50503);
+                socket = new Socket("0.0.0.0", 50503);
                 if (socket.isConnected()) showNotification("подключен");
                 while (socket.isConnected()) {
                     is = socket.getInputStream();

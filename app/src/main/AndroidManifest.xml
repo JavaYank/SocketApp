@@ -25,7 +25,14 @@
         </activity>
 
         <service
-            android:name=".MySocketService"/>
+            android:name=".MySocketService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":ServiceProcess">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </service>
 
     </application>
 
